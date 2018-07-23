@@ -35,5 +35,17 @@ router.post('/add', (req, res, next) => {
     .catch(next);
 });
 
+//DELETE BEER
+router.delete('/:id', (req, res, next) => {
+
+  // VALIDATION
+
+  Beer.findByIdAndRemove(req.params.id)
+    .then(result => {
+      res.json(result);
+    })
+    .catch(next)
+});
+
 //END
 module.exports = router;

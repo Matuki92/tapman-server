@@ -74,4 +74,26 @@ router.post('/push', (req, res, next) => {
     .catch(next);
 });
 
+//PUSH BEER TO RESTAURANT
+router.post('/remove', (req, res, next) => {
+
+  // VALIDATION
+
+  const options = {
+    new: true
+  };
+  const restaurant = req.body.restaurantName;
+  const beerId = req.body.beerId;
+
+  Restaurant.findOneAndUpdate(
+    {name: restaurant},
+    {$pull: {beers: beerId}},
+    options
+  )
+    .then(result => {
+      res.json(result);
+    })
+    .catch(next);
+});
+
 module.exports = router;
