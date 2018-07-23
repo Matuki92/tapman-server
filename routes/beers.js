@@ -1,6 +1,12 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
 const Beer = require('./../models/beer');
+
+const options = {
+  new: true
+};
 
 //GET BEERS
 router.get('/all', (req, res, next) => {
@@ -33,6 +39,28 @@ router.post('/add', (req, res, next) => {
       res.json(result);
     })
     .catch(next);
+});
+
+//UPDATE BEER
+router.put('/update', (req, res, next) => {
+
+  // VALIDATION
+
+  const $updates = {
+    name: req.body.name,
+    style: req.body.style,
+    abv: req.body.abv,
+    ibu: req.body.ibu,
+    brewery: req.body.brewery,
+    color: req.body.color,
+    price: req.body.price
+  };
+
+  Beer.findByIdAndUpdate({_id: req.body._id}, $updates, options)
+    .then(result => {
+      res.json(result);
+    })
+    .catch(next)
 });
 
 //DELETE BEER
