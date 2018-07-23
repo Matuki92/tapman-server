@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const restaurants = require('./routes/restaurants');
 const beers = require('./routes/beers');
@@ -15,6 +16,16 @@ mongoose.connect('mongodb://localhost/tapman', {
   keepAlive: true,
   reconnectTries: Number.MAX_VALUE
 });
+
+// cors
+
+// CORS
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:4200']
+}));
+
+// middlewares
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -8,7 +8,7 @@ const restaurantSchema = new Schema({
   name: String,
   beers: {
     type: [ObjectId],
-    ref: 'beer'
+    ref: 'beers'
   }
 });
 

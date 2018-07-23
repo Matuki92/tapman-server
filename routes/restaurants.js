@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Restaurant = require('./../models/beer');
+const Restaurant = require('./../models/restaurant');
 
 //GET RESTAURANTS
 router.get('/', (req, res, next) => {
@@ -14,8 +14,28 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+//GET OWN BEERS
+router.get('/:restaurant', (req, res, next) => {
+
+  // VALIDATION
+
+  Restaurant.findOne({name: req.params.restaurant})
+    .populate({
+      path: 'beers',
+      model: 'Beer'
+    })
+    .then(result => {
+
+      const data = {
+        beers: result.beers
+      }
+      res.json(data);
+    })
+    .catch(next);
+});
+
 //ADD NEW RESTAURANT
-router.post('/', (req, res, next) => {
+router.post('/add', (req, res, next) => {
 
   // VALIDATION
 
@@ -25,7 +45,32 @@ router.post('/', (req, res, next) => {
 
   const restaurant = new Restaurant(data);
   restaurant.save()
-    .then()
+    .then(result => {
+      res.json(result);
+    }
+    )
+    .catch(next);
+});
+
+//PUSH BEER TO RESTAURANT
+router.post('/push', (req, res, next) => {
+
+  // VALIDATION
+
+  const options = {
+    new: true
+  };
+  const restaurant = req.body.restaurantName;
+  const beerId = req.body.beerId;
+
+  Restaurant.findOneAndUpdate(
+    {name: restaurant},
+    {$addToSet: {beers: beerId}},
+    options
+  )
+    .then(result => {
+      res.json(result);
+    })
     .catch(next);
 });
 
