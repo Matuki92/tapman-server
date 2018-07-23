@@ -30,7 +30,8 @@ router.post('/add', (req, res, next) => {
     brewery: req.body.brewery,
     abv: req.body.abv,
     ibu: req.body.ibu,
-    price: req.body.price
+    price: req.body.price,
+    country: req.body.country
   }
   const beer = new Beer(data);
 
@@ -53,7 +54,8 @@ router.put('/update', (req, res, next) => {
     ibu: req.body.ibu,
     brewery: req.body.brewery,
     color: req.body.color,
-    price: req.body.price
+    price: req.body.price,
+    country: req.body.country
   };
 
   Beer.findByIdAndUpdate({_id: req.body._id}, $updates, options)

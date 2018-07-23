@@ -11,7 +11,8 @@ const beerSchema = new Schema({
   brewery: String,
   abv: Number,
   ibu: Number,
-  price: Number
+  price: Number,
+  country: String
 });
 
 const Beer = mongoose.model('Beer', beerSchema);
