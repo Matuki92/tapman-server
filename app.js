@@ -21,7 +21,7 @@ mongoose.connect('mongodb://localhost/tapman', {
 
 // CORS
 app.use(cors({
-  credentials: true,
+  credentials: false,
   origin: ['http://localhost:4200']
 }));
 
