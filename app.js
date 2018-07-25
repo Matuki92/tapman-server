@@ -22,7 +22,7 @@ mongoose.connect('mongodb://localhost/tapman', {
 // CORS
 app.use(cors({
   credentials: true,
-  origin: ['http://dev.tapman.beer:4200']
+  origin: ['http://localhost:4200']
 }));
 
 // middlewares
